@@ -5,3 +5,6 @@
   <input type="text" name="password"><br><br>
   <input type="submit" value="Submit">
 </form>
+<% if(messages.error) { %>
+<p><%= messages.error %></p>
+<% } %>
