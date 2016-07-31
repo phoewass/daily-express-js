@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const validator = require('express-validator');
 
 
-
+const passportConfig = require('./config/passport');
 
 
 var routes = require('./routes/index');

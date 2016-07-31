@@ -1,6 +1,5 @@
 const _ = require('lodash');
 const passport = require('passport');
-const request = require('request');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/User');
