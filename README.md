@@ -1,2 +1,2 @@
-# daily-express-js
+# Daily Express.js
 Express.js project
