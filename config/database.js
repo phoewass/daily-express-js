@@ -1,7 +1,7 @@
 var caminte = require('caminte');
 var Schema = caminte.Schema;
 var adapters = require('./adapters');
-var schema = new Schema(adapters.driver, adapters.config);
+var schema = new Schema(adapters.config.driver, adapters.config);
 
 module.exports.init = function (app) {
 

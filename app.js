@@ -7,7 +7,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const validator = require('express-validator');
 
-
+const database = require('./config/database');
 const passportConfig = require('./config/passport');
 
 
@@ -16,6 +16,7 @@ var login = require('./routes/login');
 var users = require('./routes/users');
 
 var app = express();
+database.init(app);
 
 // view engine setup
 app.set('views', './views');
