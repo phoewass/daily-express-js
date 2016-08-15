@@ -6,8 +6,6 @@ const LocalStrategy = require('passport-local').Strategy;
  * Sign in using Email and Password.
  */
 passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password',
     passReqToCallback: true
 }, (req,email, password, done) => {
     var User = req.app.models.User;
@@ -16,7 +14,7 @@ passport.use(new LocalStrategy({
     }, (err, user) => {
         if (!user) {
             return done(null, false, {
-                msg: 'Email not found.'
+                msg: 'Unable to find user.'
             });
         }
         user.verifyPassword(password, (isMatch) => {
