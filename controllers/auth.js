@@ -7,7 +7,6 @@ exports.login = (req, res, next) => {
   req.sanitize('username').normalizeEmail({ remove_dots: false });
 
   const errors = req.validationErrors();
-console.log(errors);
   if (errors) {
     req.flash('error', errors[0].msg);
     return res.redirect('/login');
@@ -16,7 +15,7 @@ console.log(errors);
   passport.authenticate('local', (err, user, info) => {
     if (err) { return next(err); }
     if (!user) {
-      req.flash('errors', info);
+      req.flash('error', info.msg);
       return res.redirect('/login');
     }
     req.logIn(user, (err) => {
