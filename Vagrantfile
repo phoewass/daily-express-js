@@ -9,6 +9,8 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder '.', '/vagrant', nfs: true
 
   config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--usb", "off"]
+    vb.customize ["modifyvm", :id, "--usbehci", "off"]
     vb.customize ["modifyvm", :id, "--memory", "512"]
     vb.customize ["modifyvm", :id, "--nictype1", "Am79C973"]
   end
