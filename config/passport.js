@@ -2,23 +2,12 @@ const _ = require('lodash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const User = require('../models/User');
-
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
-        done(err, user);
-    });
-});
-
 /**
  * Sign in using Email and Password.
  */
 passport.use(new LocalStrategy({
     usernameField: 'email',
+    passwordField: 'password',
     passReqToCallback: true
 }, (req,email, password, done) => {
     var User = req.app.models.User;
@@ -27,10 +16,10 @@ passport.use(new LocalStrategy({
     }, (err, user) => {
         if (!user) {
             return done(null, false, {
-                msg: `Email ${email} not found.`
+                msg: 'Email not found.'
             });
         }
-        User.comparePassword(password, (err, isMatch) => {
+        user.verifyPassword(password, (isMatch) => {
             if (isMatch) {
                 return done(null, user);
             }
