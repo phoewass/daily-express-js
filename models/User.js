@@ -30,12 +30,24 @@ module.exports = function (schema) {
 
 
     });
-    User.prototype.verifyPassword = function (password,cb) {
-        bcrypt.compare(password, this.password, function(err, res) {
-            cb(res);
-        });
+    User.prototype.verifyPassword = function (password, cb) {
+      bcrypt.compare(password, this.password, function (err, res) {
+        cb(res);
+      });
     };
-
+    User.beforeCreate = function (next) {
+      var user = this;
+      bcrypt.hash(user.plaintTaxtpassword, 10, function (err, hash) {
+        delete user.plaintTaxtpassword;
+        if (err) {
+          console.log(err);
+          next(err);
+        } else {
+          user.password = hash;
+          next();
+        }
+      });
+    };
     passport.serializeUser((user, done) => {
         done(null, user.id);
     });
