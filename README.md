@@ -1,7 +1,5 @@
 # Daily Express.js
-A Express.js MVC web project
+A Express.js MVC web app
 
-Goals
------
-*Have a fun project to contibute to on a daily basis.
-*Prepare a boilerplate for a web project havig basic features such as: authentication, users...
+This is mainly a fun project I started for two reasons: a sharpen my Node.js skills by commiting daily :)
+then, it could serve as a web app starter boilerplate having basic features such as: authentication, user creation...
