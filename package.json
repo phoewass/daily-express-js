@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
+    "bluebird": "^3.4.1",
     "body-parser": "~1.15.1",
     "caminte": "^0.2.13",
     "cookie-parser": "~1.4.3",
