@@ -28,6 +28,9 @@ module.exports = function (schema) {
         name: {
             type: schema.String
         },
+        username: {
+            type: schema.String
+        },
         email: {
             type: schema.String
         },
