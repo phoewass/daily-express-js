@@ -1,11 +1,11 @@
 exports.signup = function(req, res) {
     var User = req.app.models.User;
-    console.log(req.body);
     User.create({
-        username: req.body.username,
+        email: req.body.username,
         password: req.body.password
     }, function (err) {
         if (err) {
+            console.log(err);
             req.flash('error', 'Could not create user.');
             return res.redirect('/signup');
         }
