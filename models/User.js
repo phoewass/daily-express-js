@@ -72,6 +72,6 @@ module.exports = function (schema) {
             done(err, user);
         });
     });
-
+    schema.autoupdate();
     return User;
 };
