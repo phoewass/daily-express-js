@@ -10,4 +10,4 @@ cd /vagrant
 npm install --no-bin-links
 
 #Run
-nodemon bin/www
+nodemon -L bin/www
