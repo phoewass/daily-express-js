@@ -1,4 +1,12 @@
 exports.signup = function(req, res) {
+    req.check('email', 'Email is not valid').isEmail();
+
+    var errors = req.validationErrors();
+    if (errors) {
+        req.flash('error', errors[0].msg);
+        return res.redirect('/signup');
+    }
+
     var User = req.app.models.User;
     User.create({
         active: false,

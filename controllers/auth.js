@@ -1,12 +1,11 @@
-const passport = require('passport');
-const User = require('../models/User');
+var passport = require('passport');
+var User = require('../models/User');
 
 exports.login = (req, res, next) => {
-  req.check('username', 'Email is not valid').isEmail();
+  req.check('username', 'Username cannot be blank').notEmpty();
   req.check('password', 'Password cannot be blank').notEmpty();
-  req.sanitize('username').normalizeEmail({ remove_dots: false });
 
-  const errors = req.validationErrors();
+  var errors = req.validationErrors();
   if (errors) {
     req.flash('error', errors[0].msg);
     return res.redirect('/login');
