@@ -1,7 +1,9 @@
 exports.signup = function(req, res) {
     var User = req.app.models.User;
     User.create({
-        email: req.body.username,
+        active: false,
+        email: req.body.email,
+        username: req.body.username,
         password: req.body.password
     }, function (err) {
         if (err) {
