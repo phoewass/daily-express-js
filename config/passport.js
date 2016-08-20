@@ -1,20 +1,20 @@
-const _ = require('lodash');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+var _ = require('lodash'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy;
 
 /**
  * Sign in using Email and Password.
  */
 passport.use(new LocalStrategy({
     passReqToCallback: true
-}, (req,email, password, done) => {
+}, (req, username, password, done) => {
     var User = req.app.models.User;
     User.findOne({
-        email: email.toLowerCase()
+        username: username
     }, (err, user) => {
         if (!user) {
             return done(null, false, {
-                msg: 'Unable to find user.'
+                msg: 'Invalid username or password.'
             });
         }
         user.verifyPassword(password, (isMatch) => {
@@ -22,7 +22,7 @@ passport.use(new LocalStrategy({
                 return done(null, user);
             }
             return done(null, false, {
-                msg: 'Invalid email or password.'
+                msg: 'Invalid username or password.'
             });
         });
     });
@@ -42,7 +42,7 @@ exports.isAuthenticated = (req, res, next) => {
  * Authorization Required middleware.
  */
 exports.isAuthorized = (req, res, next) => {
-    const provider = req.path.split('/').slice(-1)[0];
+    var provider = req.path.split('/').slice(-1)[0];
 
     if (_.find(req.user.tokens, {
             kind: provider
