@@ -8,18 +8,17 @@ exports.signup = function(req, res) {
     }
 
     var User = req.app.models.User;
-    User.create({
-        active: false,
+    User.add({
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password
+        plainTextPassword: req.body.password
     }, function (err) {
         if (err) {
             console.log(err);
             req.flash('error', 'Could not create user.');
             return res.redirect('/signup');
         }
-       req.flash('success', { msg: 'Success! You are logged in.' });
+       req.flash('success', { msg: 'Success! Account created.' });
        res.redirect(req.session.returnTo || '/');
 
     });

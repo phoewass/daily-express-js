@@ -1,4 +1,5 @@
-var passport      = require('passport'),
+var _             = require('lodash'),
+    passport      = require('passport'),
     Promise       = require('bluebird'),
     bcrypt        = require('bcrypt'),
 
@@ -47,25 +48,25 @@ module.exports = function (schema) {
 
 
     });
+
+    User.add = function (user,cb){
+        user.active = false;
+        user.plainTextPassword = _.toString(user.plainTextPassword);
+        return generatePasswordHash(user.plainTextPassword).then(function (hash) {
+            user.password = hash;
+            delete user.plainTextPassword;
+        }).then(function then(userData) {
+            return User.create(user,cb);
+        });
+
+    };
+
     User.prototype.verifyPassword = function (password, cb) {
         bcrypt.compare(password, this.password, function (err, res) {
             cb(res);
         });
     };
-    User.beforeCreate = function (next) {
-        var user = this;
-        bcrypt.genSalt(10, function (err, salt) {
-            bcrypt.hash(user.password, salt, function (err, hash) {
-                if (err) {
-                    console.log(err);
-                    next(err);
-                } else {
-                    user.password = hash;
-                    next();
-                }
-            });
-        });
-    };
+
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
